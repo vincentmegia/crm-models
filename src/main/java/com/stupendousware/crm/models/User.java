@@ -11,13 +11,13 @@ public class User {
     private final int age;
     private final LocalDate birthDate;
 
-    public User(String firstName, String lastName, String middleName, String id, int age, LocalDate birthDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.id = id;
-        this.age = age;
-        this.birthDate = birthDate;
+    private User(Builder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.middleName = builder.middleName;
+        this.id = builder.id;
+        this.age = builder.age;
+        this.birthDate = builder.birthDate;
     }
 
     public String getFirstName() {
@@ -45,15 +45,15 @@ public class User {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
         return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 
     @Override
@@ -66,5 +66,43 @@ public class User {
                 ", age=" + age +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+
+    public static class Builder {
+        private final String firstName;
+        private final String lastName;
+        private String middleName;
+        private String id;
+        private int age;
+        private LocalDate birthDate;
+
+        public Builder(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public Builder middleName(String middleName) {
+            this.middleName = middleName;
+            return this;
+        }
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder birthDate(LocalDate birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
     }
 }
