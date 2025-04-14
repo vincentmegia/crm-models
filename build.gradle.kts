@@ -8,7 +8,7 @@ plugins {
 val releaseType = ""
 println("RELEASE TYPE: " + releaseType)
 group = "com.stupendousware.crm.models"
-version = "1.1" + releaseType
+version = "1.3" + releaseType
 
 repositories {
     mavenCentral()
