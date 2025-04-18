@@ -8,13 +8,15 @@ plugins {
 val releaseType = ""
 println("RELEASE TYPE: " + releaseType)
 group = "com.stupendousware.crm.models"
-version = "1.3" + releaseType
+version = "1.4.0." + releaseType
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+//    implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.3")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

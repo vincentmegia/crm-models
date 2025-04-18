@@ -7,12 +7,12 @@ public class UserTest {
     @Test
     public void firstNameSuccess() {
         var user = new User.Builder("john", null).build();
-        Assertions.assertTrue("john".equals(user.getFirstName()));
+        Assertions.assertTrue("john".equals(user.getFirstname()));
     }
 
     @Test
     public void lastNameSuccess() {
         var user = new User.Builder("john", "doe").build();
-        Assertions.assertTrue("doe".equals(user.getLastName()));
+        Assertions.assertTrue("doe".equals(user.getLastname()));
     }
 }

@@ -4,28 +4,36 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
-    private final String firstName;
-    private final String lastName;
+    private final String firstname;
+    private final String lastname;
     private final String middleName;
     private final String id;
     private final int age;
     private final LocalDate birthDate;
+    private String key;
 
     private User(Builder builder) {
-        this.firstName = builder.firstName;
-        this.lastName = builder.lastName;
+        this.firstname = builder.firstName;
+        this.lastname = builder.lastName;
         this.middleName = builder.middleName;
         this.id = builder.id;
         this.age = builder.age;
         this.birthDate = builder.birthDate;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public static User create(String firstname, String lastname) {
+        var user = new Builder(firstname, lastname)
+                .key(firstname + "." + lastname + "-key")
+                .build();
+        return user;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
     }
 
     public String getMiddleName() {
@@ -50,17 +58,21 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(id, user.id);
+    public boolean equals(Object obj) {
+        var target = (User) obj;
+        if (!firstname.equals(target.getFirstname()))
+            return false;
+        if (!lastname.equals(target.getLastname()))
+            return false;
+        if (this == obj) return true;
+        return Objects.equals(id, target.id);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "firstName='" + firstname + '\'' +
+                ", lastName='" + lastname + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", id='" + id + '\'' +
                 ", age=" + age +
@@ -71,6 +83,7 @@ public class User {
     public static class Builder {
         private final String firstName;
         private final String lastName;
+        private String key;
         private String middleName;
         private String id;
         private int age;
@@ -88,6 +101,11 @@ public class User {
 
         public Builder id(String id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder key(String key) {
+            this.key = key;
             return this;
         }
 
