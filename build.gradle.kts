@@ -10,6 +10,9 @@ println("RELEASE TYPE: " + releaseType)
 group = "com.stupendousware.crm.models"
 version = "1.4.0." + releaseType
 
+System.setProperty("javax.net.ssl.trustStore", providers.gradleProperty("trustStore").get())
+System.setProperty("javax.net.ssl.trustStorePassword", providers.gradleProperty("trustStorePassword").get())
+
 repositories {
     mavenCentral()
 }
@@ -58,15 +61,15 @@ publishing {
                 name = "snapshotRepository"
                 url = uri("https://nexus.stupendousware.com/repository/maven-snapshots/")
                 credentials {
-                    username = "admin"
-                    password = "123"
+                    username = providers.gradleProperty("mavenUsername").get()
+                    password = providers.gradleProperty("mavenPassword").get()
                 }
             } else {
                 name = "releaseRepository"
                 url = uri("https://nexus.stupendousware.com/repository/maven-releases/")
                 credentials {
-                    username = "admin"
-                    password = "123"
+                    username = providers.gradleProperty("mavenUsername").get()
+                    password = providers.gradleProperty("mavenPassword").get()
                 }
             }
         }
